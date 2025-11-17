@@ -456,14 +456,14 @@ int kama_pgtblorint(pagetable_t pagetable , int depth)
       }
       printf("%d: pte:%p  pa:%p\n",i,pte,PTE2PA(pte));
 
-      if ((pte & PTE_V) && (PTE_R|PTE_W|PTE_X)== 0)
+      if ((pte & (PTE_R|PTE_W|PTE_X))== 0)
       {
         uint64 child = PTE2PA(pte);
-        kama_pgtblorint(child , depth+1);
+        kama_pgtblorint((pagetable_t)child , depth+1);
       }
     }
-    return 0;
   }
+  return 0;
 }
 
 int kama_vmprint(pagetable_t pagetable)
